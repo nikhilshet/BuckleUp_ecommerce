@@ -17,22 +17,23 @@ if(isset($_POST["submit"])){
   if(mysqli_num_rows($duplicate) > 0){
     echo
     "<script> alert('Username or Email Has Already Taken'); </script>";
-  }
-  else{
-    if($password == $confirmpassword){
-      $query = "INSERT INTO user (name, username, email, password, confirmpassword) VALUES ('$name', '$username', '$email', '$password', '$confirmpassword')";
-
     
-      mysqli_query($conn, $query);
-      
-      echo
-      "<script> alert('Registration Successful'); </script>";
-    }
-    else{
-      echo
-      "<script> alert('Password Does Not Match'); </script>";
-    }
   }
+  else {
+    if ($password == $confirmpassword) {
+        if (strlen($password) >= 8) {
+            $query = "INSERT INTO user (name, username, email, password, confirmpassword) VALUES ('$name', '$username', '$email', '$password', '$confirmpassword')";
+            
+            mysqli_query($conn, $query);
+            
+            echo "<script> alert('Registration Successful'); </script>";
+        } else {
+            echo "<script> alert('Password must be at least 8 characters long'); </script>";
+        }
+    } else {
+        echo "<script> alert('Password Does Not Match'); </script>";
+    }
+}
 }
 ?>
 
@@ -255,7 +256,9 @@ if(isset($_POST["submit"])){
   <script src="js/aos.js"></script>
 
   <script src="js/main.js"></script>
-
+  <script>
+   
+  </script>
 </body>
 
 </html>
